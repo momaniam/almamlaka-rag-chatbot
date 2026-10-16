@@ -1,0 +1,126 @@
+/* Almamlaka TV branding for the RAG assistant (injected once by app.py). */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600&display=swap");
+
+:root {
+  --mm-red: #9B1B1B;
+  --mm-red-dark: #7A1414;
+  --mm-bg: #F4F4F6;
+  --mm-surface: #FFFFFF;
+  --mm-text: #2B2B2B;
+  --mm-muted: #6B6B6B;
+}
+
+/* ---------- header band ---------- */
+.mm-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--mm-red) 0%, var(--mm-red-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.mm-header img {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+.mm-header .mm-title {
+  margin: 0;
+  padding: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #FFFFFF;
+}
+.mm-header .mm-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: #FFFFFF;
+}
+
+/* ---------- chat bubbles ---------- */
+[data-testid="stChatMessage"] {
+  background: var(--mm-surface);
+  border: 1px solid #E2E2E6;
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+  background: #FBEDED;
+  border-color: #EBC9C9;
+}
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]),
+[data-testid="stChatMessage"]:has(img) {
+  border-inline-start: 4px solid var(--mm-red);
+}
+
+/* ---------- text direction ---------- */
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+.rtl {
+  direction: rtl;
+  text-align: right;
+  font-family: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  line-height: 1.9;
+}
+/* Keyed containers wrapping Arabic conflict boxes / sources */
+[class*="st-key-rtl_"] {
+  direction: rtl;
+  text-align: right;
+  font-family: "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+}
+
+/* ---------- citations ---------- */
+.mm-sources {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--mm-muted);
+}
+[data-testid="stExpander"] details {
+  border-radius: 8px;
+  border-color: #E2E2E6;
+  background: var(--mm-bg);
+}
+[data-testid="stExpander"] summary {
+  font-size: 0.9rem;
+}
+
+/* ---------- conflict boxes ---------- */
+[data-testid="stAlert"] {
+  border-radius: 10px;
+}
+.mm-note {
+  font-size: 0.85rem;
+  color: var(--mm-muted);
+}
+
+/* ---------- sidebar ---------- */
+[data-testid="stSidebar"] [data-testid="stImage"] img {
+  border-radius: 8px;
+}
+[data-testid="stSidebar"] button {
+  text-align: start;
+}
+
+/* ---------- accessibility: keep focus visible ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--mm-red) !important;
+  outline-offset: 2px !important;
+}
