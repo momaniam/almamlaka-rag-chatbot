@@ -1,0 +1,6 @@
+streamlit==1.66.0
+openai==3.31.0
+rank-bm25==0.2.2
+numpy==2.5.4
+python-dotenv==1.2.4
+pymupdf==1.28.2

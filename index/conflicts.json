@@ -1,0 +1,189 @@
+{
+ "model": "gpt-4o",
+ "built_at": "2026-10-16T16:51:48+00:00",
+ "facts": [
+  {
+   "attribute": "quarterly_budget_q1_2027",
+   "value": "$630,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "quarterly_budget_q2_2027",
+   "value": "$720,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "quarterly_budget_q3_2027",
+   "value": "$560,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "quarterly_budget_q4_2027",
+   "value": "$490,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "total_budget",
+   "value": "$2,400,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "total_budget_revised",
+   "value": "$2,600,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s2"
+  },
+  {
+   "attribute": "development_budget_total",
+   "value": "$1,700,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "marketing_budget_total",
+   "value": "$460,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "operations_budget_total",
+   "value": "$240,000",
+   "chunk_id": "Almamlaka_Budget_Timeline#s1"
+  },
+  {
+   "attribute": "requirements_finalized_date",
+   "value": "Jan 10, 2027",
+   "chunk_id": "Almamlaka_Budget_Timeline#s3"
+  },
+  {
+   "attribute": "mobile_app_design_freeze_date",
+   "value": "Feb 5, 2027",
+   "chunk_id": "Almamlaka_Budget_Timeline#s3"
+  },
+  {
+   "attribute": "development_complete_date",
+   "value": "Mar 1, 2027",
+   "chunk_id": "Almamlaka_Budget_Timeline#s3"
+  },
+  {
+   "attribute": "qa_testing_period",
+   "value": "Mar 1 - Mar 20, 2027",
+   "chunk_id": "Almamlaka_Budget_Timeline#s3"
+  },
+  {
+   "attribute": "public_launch_date",
+   "value": "March 15, 2027",
+   "chunk_id": "Almamlaka_Budget_Timeline#s3"
+  },
+  {
+   "attribute": "post_launch_review_date",
+   "value": "Jun 15, 2027",
+   "chunk_id": "Almamlaka_Budget_Timeline#s3"
+  },
+  {
+   "attribute": "smart_tv_integration_risk",
+   "value": "highest-risk item",
+   "chunk_id": "Almamlaka_Budget_Timeline#s4"
+  },
+  {
+   "attribute": "project_lead",
+   "value": "Sara Al-Rashid",
+   "chunk_id": "Almamlaka_Project_Overview#s3"
+  },
+  {
+   "attribute": "total_budget",
+   "value": "$2,400,000",
+   "chunk_id": "Almamlaka_Project_Overview#s3"
+  },
+  {
+   "attribute": "planned_launch_date",
+   "value": "March 15, 2027",
+   "chunk_id": "Almamlaka_Project_Overview#s3"
+  },
+  {
+   "attribute": "project_duration",
+   "value": "14 months",
+   "chunk_id": "Almamlaka_Project_Overview#s3"
+  },
+  {
+   "attribute": "platform_scope_languages",
+   "value": "12 languages",
+   "chunk_id": "Almamlaka_Project_Overview#s4"
+  },
+  {
+   "attribute": "steering_committee_meeting_frequency",
+   "value": "bi-weekly",
+   "chunk_id": "Almamlaka_Team_Governance#s2"
+  },
+  {
+   "attribute": "budget_change_approval_threshold",
+   "value": "$50,000",
+   "chunk_id": "Almamlaka_Team_Governance#s2"
+  },
+  {
+   "attribute": "public_launch_date_revised",
+   "value": "April 1, 2027",
+   "chunk_id": "Almamlaka_Team_Governance#s3"
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "Total Budget",
+   "kind": "contradiction",
+   "description": "The total budget for the project is given as both $2,400,000 and $2,600,000.",
+   "claims": [
+    {
+     "value": "$2,400,000",
+     "chunk_id": "Almamlaka_Budget_Timeline#s1",
+     "note": "originally approved budget"
+    },
+    {
+     "value": "$2,600,000",
+     "chunk_id": "Almamlaka_Budget_Timeline#s2",
+     "note": "revision by the Finance Committee in December 2026"
+    },
+    {
+     "value": "$2,400,000",
+     "chunk_id": "Almamlaka_Project_Overview#s3",
+     "note": "originally approved budget"
+    }
+   ]
+  },
+  {
+   "topic": "Public Launch Date",
+   "kind": "contradiction",
+   "description": "The public launch date is given as both March 15, 2027 and April 1, 2027.",
+   "claims": [
+    {
+     "value": "March 15, 2027",
+     "chunk_id": "Almamlaka_Budget_Timeline#s3",
+     "note": ""
+    },
+    {
+     "value": "March 15, 2027",
+     "chunk_id": "Almamlaka_Project_Overview#s3",
+     "note": ""
+    },
+    {
+     "value": "April 1, 2027",
+     "chunk_id": "Almamlaka_Team_Governance#s3",
+     "note": "revised date following steering committee meeting on January 20, 2027"
+    }
+   ]
+  },
+  {
+   "topic": "QA & Testing and Public Launch Date",
+   "kind": "inconsistency",
+   "description": "The QA & testing period ends after the initially planned public launch date.",
+   "claims": [
+    {
+     "value": "Mar 1 - Mar 20, 2027",
+     "chunk_id": "Almamlaka_Budget_Timeline#s3",
+     "note": "QA & testing period"
+    },
+    {
+     "value": "March 15, 2027",
+     "chunk_id": "Almamlaka_Budget_Timeline#s3",
+     "note": "initial public launch date"
+    }
+   ]
+  }
+ ]
+}
