@@ -10,6 +10,8 @@ pinned: false
 
 # Almamlaka TV – Digital Expansion Initiative Assistant
 
+**Live demo:** https://almamlaka-rag-chatbot.streamlit.app/
+
 A retrieval-augmented (RAG) chatbot that answers questions about Almamlaka TV's Digital Expansion Initiative using only three PDFs in `data/`:
 
 - `Almamlaka_Project_Overview.pdf`
@@ -139,11 +141,15 @@ Rebuild `index/` whenever the PDFs, the chunking code, the embedding model or th
 
 Tunables (environment variables): `OPENAI_CHAT_MODEL`, `OPENAI_CONDENSE_MODEL`, `OPENAI_EMBED_MODEL`, `RAG_RELEVANCE_THRESHOLD`, `RAG_TOP_K`, `RAG_MAX_CONTEXT_CHUNKS`, `RAG_HISTORY_MESSAGES`, `RAG_MAX_INPUT_CHARS`.
 
-## Deploy to Hugging Face Spaces
+## Deployment
 
-Live demo: https://huggingface.co/spaces/momaniam/almamlaka-rag-chatbot
+The live app runs on **Streamlit Community Cloud** (free), deployed straight from this repo: `main` branch, `app.py`, Python 3.12, with `OPENAI_API_KEY = "..."` set in the app's Secrets. Pushing to `main` redeploys it.
 
-1. Create a Space at https://huggingface.co/new-space with the **Docker** SDK (Hugging Face no longer offers a native Streamlit SDK for new Spaces). The included `Dockerfile` runs `streamlit run app.py` on port 7860, and the YAML block at the top of this README configures the Space.
+### Alternative: Hugging Face Spaces (Docker)
+
+Hugging Face no longer offers a native Streamlit SDK for new Spaces, and Docker Spaces on free CPU now require a PRO subscription, which is why Streamlit Cloud is used for the live demo. The included `Dockerfile` (port 7860) and the YAML block at the top of this README are ready for a Docker Space:
+
+1. Create a Space at https://huggingface.co/new-space with the **Docker** SDK.
 2. Upload the committed files with the Hugging Face CLI (it handles the PDFs and images as binary files automatically; a plain `git push` would reject them without git-lfs). Uploading from a fresh clone guarantees that `.env`, `.venv/` and other untracked local files are never sent:
 
    ```bash
@@ -193,7 +199,13 @@ Known soft spots:
 
 ## Sample Q&A
 
-Real replies from `eval/results.json` (screenshots go in `docs/screenshots/`):
+Screenshots captured from the live app:
+
+| Budget conflict (EN) | Launch date in Arabic + conflict | Follow-up + prompt injection |
+|---|---|---|
+| ![Budget conflict](docs/screenshots/01_budget_conflict_en.png) | ![Arabic launch date](docs/screenshots/02_launch_date_arabic.png) | ![Follow-up and injection](docs/screenshots/03_followup_and_injection.png) |
+
+Real replies from `eval/results.json`:
 
 | Question | Reply | Shown with it |
 |---|---|---|
