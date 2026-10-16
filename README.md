@@ -3,10 +3,8 @@ title: Almamlaka TV Assistant
 emoji: 📺
 colorFrom: red
 colorTo: gray
-sdk: streamlit
-sdk_version: 1.66.0
-python_version: "3.12"
-app_file: app.py
+sdk: docker
+app_port: 7860
 pinned: false
 ---
 
@@ -143,7 +141,9 @@ Tunables (environment variables): `OPENAI_CHAT_MODEL`, `OPENAI_CONDENSE_MODEL`, 
 
 ## Deploy to Hugging Face Spaces
 
-1. Create a Space at https://huggingface.co/new-space with the Streamlit SDK (for example `momaniam/almamlaka-tv-assistant`). The YAML block at the top of this README configures it.
+Live demo: https://huggingface.co/spaces/momaniam/almamlaka-rag-chatbot
+
+1. Create a Space at https://huggingface.co/new-space with the **Docker** SDK (Hugging Face no longer offers a native Streamlit SDK for new Spaces). The included `Dockerfile` runs `streamlit run app.py` on port 7860, and the YAML block at the top of this README configures the Space.
 2. Upload the committed files with the Hugging Face CLI (it handles the PDFs and images as binary files automatically; a plain `git push` would reject them without git-lfs). Uploading from a fresh clone guarantees that `.env`, `.venv/` and other untracked local files are never sent:
 
    ```bash
