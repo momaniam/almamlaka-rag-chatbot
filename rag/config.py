@@ -36,7 +36,9 @@ EMBED_MODEL = os.environ.get("OPENAI_EMBED_MODEL", "text-embedding-3-small")
 CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-4o")
 CONDENSE_MODEL = os.environ.get("OPENAI_CONDENSE_MODEL", "gpt-4o-mini")
 
-RELEVANCE_THRESHOLD = _env_float("RAG_RELEVANCE_THRESHOLD", 0.30)
+# Tuned in eval/run_eval.py: unrelated queries scored <= 0.22, the lowest
+# in-scope query 0.28-0.30 (see README "Evaluation").
+RELEVANCE_THRESHOLD = _env_float("RAG_RELEVANCE_THRESHOLD", 0.25)
 TOP_K = _env_int("RAG_TOP_K", 6)
 MAX_CONTEXT_CHUNKS = _env_int("RAG_MAX_CONTEXT_CHUNKS", 10)
 HISTORY_MESSAGES = _env_int("RAG_HISTORY_MESSAGES", 6)

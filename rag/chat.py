@@ -18,6 +18,7 @@ from rag.prompts import (
     GENERATION_SCHEMA,
     build_condense_messages,
     build_generation_messages,
+    describe_corpus,
     template,
 )
 from rag.retrieve import retrieve
@@ -78,6 +79,7 @@ class ChatEngine:
         self.max_context_chunks = max_context_chunks
         self.history_messages = history_messages
         self.max_input_chars = max_input_chars
+        self.corpus_description = describe_corpus(index.chunks)
 
     # ------------------------------------------------------------ helpers
 
@@ -117,7 +119,7 @@ class ChatEngine:
         try:
             condensed = self.llm.chat_json(
                 self.condense_model,
-                build_condense_messages(recent, msg),
+                build_condense_messages(recent, msg, self.corpus_description),
                 "condense",
                 CONDENSE_SCHEMA,
             )
