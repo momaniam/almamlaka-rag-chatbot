@@ -102,6 +102,35 @@ def test_arabic_answer_renders_rtl(monkeypatch):
     assert "المصادر" in page
 
 
+def test_missing_index_without_key_shows_error(monkeypatch, tmp_path):
+    monkeypatch.setattr("rag.config.INDEX_PATH", tmp_path / "missing.json")
+    monkeypatch.setattr("rag.config.get_api_key", lambda: None)
+    at = AppTest.from_file(APP_PATH).run(timeout=30)
+    assert not at.exception
+    assert any("index is missing or out of date" in e.value for e in at.error)
+
+
+def test_missing_index_is_rebuilt_at_startup(monkeypatch, tmp_path):
+    import json
+
+    data = json.loads((REPO_ROOT / "index" / "index.json").read_text(encoding="utf-8"))
+    calls = []
+
+    def fake_build_index(data_dir, llm, embedding_model):
+        calls.append(data_dir)
+        return data
+
+    monkeypatch.setattr("rag.config.INDEX_PATH", tmp_path / "missing.json")
+    monkeypatch.setattr("rag.index.build_index", fake_build_index)
+    at = AppTest.from_file(APP_PATH).run(timeout=30)
+    assert not at.exception
+    assert not at.error
+    assert len(calls) == 1
+    sidebar = _all_markdown(at.sidebar.markdown)
+    for pdf in PDFS:
+        assert pdf in sidebar
+
+
 def test_missing_key_shows_error_without_crash(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.setattr("rag.config.get_api_key", lambda: None)

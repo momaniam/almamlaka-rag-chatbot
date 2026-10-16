@@ -17,7 +17,7 @@ from rag import config
 from rag.chat import ChatEngine, ChatResult
 from rag.conflicts import load_conflicts
 from rag.formatting import citation_label, safe_html
-from rag.index import Index, IndexStaleError, load_index
+from rag.index import Index, IndexStaleError, build_index, load_index
 from rag.language import detect_language
 from rag.llm import OpenAIClient
 
@@ -86,9 +86,31 @@ def _b64(path: str) -> str:
         return base64.b64encode(fh.read()).decode("ascii")
 
 
+def rebuild_index_data() -> dict[str, Any]:
+    """Fallback when index.json is missing or stale: re-embed the PDFs in data/."""
+    api_key = config.get_api_key()
+    if not api_key:
+        raise IndexStaleError("index is stale and OPENAI_API_KEY is not configured to rebuild it")
+    log.warning("rebuilding the index from %s at startup", config.DATA_DIR)
+    llm = OpenAIClient(api_key=api_key, embed_model=config.EMBED_MODEL)
+    return build_index(config.DATA_DIR, llm, config.EMBED_MODEL)
+
+
 @st.cache_resource(show_spinner=False)
 def load_knowledge_base() -> tuple[Index, list[dict[str, Any]]]:
-    index = load_index(config.INDEX_PATH, config.DATA_DIR)
+    rebuilt = False
+
+    def rebuild() -> dict[str, Any]:
+        nonlocal rebuilt
+        rebuilt = True
+        return rebuild_index_data()
+
+    index = load_index(config.INDEX_PATH, config.DATA_DIR, rebuild=rebuild)
+    if rebuilt:
+        # Pre-scanned conflicts belong to the old PDFs; the generator still
+        # flags conflicts it sees in the retrieved excerpts.
+        log.warning("index rebuilt at startup; continuing without pre-scanned conflicts")
+        return index, []
     conflicts = load_conflicts(config.CONFLICTS_PATH, valid_ids=index.by_id.keys())
     return index, conflicts
 
@@ -282,7 +304,7 @@ def main() -> None:
 
     try:
         index, _ = load_knowledge_base()
-    except (IndexStaleError, OSError, ValueError) as exc:
+    except Exception as exc:  # stale index without key, rebuild/API failure, bad JSON
         log.warning("knowledge base unavailable: %s", type(exc).__name__)
         index = None
 
