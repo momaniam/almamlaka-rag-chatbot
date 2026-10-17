@@ -121,7 +121,7 @@ The prompt is generic; nothing about this corpus is hardcoded. Claims with unkno
 ## Branding
 
 - Palette taken from almamlakatv.com: dark navy by default (page `#1B1F2A`, header `#151922`, cards `#232836`, text `#FFFFFF`, muted `#9AA0AD`), red accent `#A3171D` with a `#A3171D → #C62828` gradient; a light theme (page `#FAFAFA`, cards `#FFFFFF`, text `#1A1A1A`) is one click away via the sun/moon switch in the top bar.
-- Logo (`assets/unnamed.jpg`) in the sticky top bar (alt "المملكة") and as the assistant's round avatar; IBM Plex Sans Arabic font.
+- Logo (`assets/logo.svg` if present, otherwise `assets/unnamed.jpg`, which is what ships today) in the sticky top bar (alt "المملكة") and as the assistant's round avatar; IBM Plex Sans Arabic font.
 - Chat layout: centered greeting with a red "متصل" live pill and suggestion chips, red user bubbles, typing indicator, pinned composer, a "3 PDFs" popover listing the knowledge base, and a "محادثة جديدة" (new chat) button.
 - Tokens live as CSS variables in `assets/style.css` (theme base in `.streamlit/config.toml`); visible red focus rings, AA text contrast in both themes, and animations are disabled under `prefers-reduced-motion`.
 
@@ -202,9 +202,9 @@ Known soft spots:
 
 Screenshots captured from the live app:
 
-| Budget conflict (EN) | Launch date in Arabic + conflict | Follow-up + prompt injection |
-|---|---|---|
-| ![Budget conflict](docs/screenshots/01_budget_conflict_en.png) | ![Arabic launch date](docs/screenshots/02_launch_date_arabic.png) | ![Follow-up and injection](docs/screenshots/03_followup_and_injection.png) |
+| Budget conflict (EN) | Launch date in Arabic + conflict | Follow-up + prompt injection | Out-of-scope refusal |
+|---|---|---|---|
+| ![Budget conflict](docs/screenshots/01_budget_conflict_en.png) | ![Arabic launch date](docs/screenshots/02_launch_date_arabic.png) | ![Follow-up and injection](docs/screenshots/03_followup_and_injection.png) | ![Out-of-scope refusal](docs/screenshots/04_out_of_scope.png) |
 
 Real replies from `eval/results.json`:
 

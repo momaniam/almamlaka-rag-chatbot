@@ -89,15 +89,23 @@ THREAD_SCRIPT = """<script>
 </script><span class="mm-thread-tick" data-count="%d" hidden></span>"""
 
 
-# Gives Streamlit's send button an Arabic accessible name (constant script).
+# Gives Streamlit's send button and the sources popover trigger Arabic-first
+# accessible names (constant script, no user data).
 COMPOSER_SCRIPT = """<script>
 (function () {
   if (window.__mmComposerA11y) { return; }
   window.__mmComposerA11y = true;
-  var label = function () {
-    document.querySelectorAll('[data-testid="stChatInputSubmitButton"]').forEach(function (b) {
-      if (b.getAttribute('aria-label') !== 'إرسال') { b.setAttribute('aria-label', 'إرسال'); b.title = 'إرسال / Send'; }
+  var name = function (sel, text) {
+    document.querySelectorAll(sel).forEach(function (b) {
+      if (b.getAttribute('aria-label') !== text) { b.setAttribute('aria-label', text); }
     });
+  };
+  var label = function () {
+    name('[data-testid="stChatInputSubmitButton"]', 'إرسال');
+    document.querySelectorAll('[data-testid="stChatInputSubmitButton"]').forEach(function (b) {
+      if (!b.title) { b.title = 'إرسال / Send'; }
+    });
+    name('.st-key-mm_actions [data-testid="stPopover"] button', 'المصادر: ٣ ملفات PDF / Sources: 3 PDFs');
   };
   label();
   new MutationObserver(label).observe(document.body, { childList: true, subtree: true });

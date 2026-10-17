@@ -46,7 +46,7 @@
   --c-accent-soft: 198 40 40;
   --c-accent-faint: 248 233 233;/* #F8E9E9 */
   --c-accent-deep: 138 19 24;   /* #8A1318 accent text on light */
-  --c-focus: 163 23 29;
+  --c-focus: 157 29 32;         /* #9D1D20 focus ring on light */
   --c-stone-200: 230 230 230;   /* #E6E6E6 */
   --c-stone-300: 212 212 212;
   --c-shadow: 26 26 26;
@@ -502,7 +502,8 @@ footer,
 }
 [data-testid="stBottomBlockContainer"] {
   max-width: calc(var(--content-w) + 2rem);
-  padding: 12px 1rem 10px !important;
+  /* room under the disclaimer so it never touches the viewport edge */
+  padding: 12px 1rem calc(20px + env(safe-area-inset-bottom, 0px)) !important;
 }
 [data-testid="stBottomBlockContainer"] [data-testid="stVerticalBlock"] { gap: 8px; }
 .mm-disclaimer {
