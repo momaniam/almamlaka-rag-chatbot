@@ -175,7 +175,7 @@ python eval/run_eval.py --no-judge   # deterministic checks only
 
 Each turn is graded twice. Deterministic checks run on normalised text (lowercase, Arabic-Indic digits to ASCII, thousands separators removed): reply kind, language, required/forbidden terms, conflict flagged, cited documents. An LLM judge then compares the reply (answer, citations, conflict boxes) with a written expected behaviour. A turn passes only if both agree; a case passes only if all its turns pass. Cases cover conflicts (EN and AR), a 3-turn follow-up chain, an English→Arabic follow-up, partial information (12 languages, unnamed law, unnamed smart TV platforms, revised budget breakdown, moderation rules), out-of-scope (weather, revenue), injection in English and Arabic, a system-prompt-reveal attempt, a greeting and a "has it launched?" temporal trap.
 
-Result: **25/25 passed** (see [`eval/results.md`](eval/results.md); 25/25 on each of the last four full runs).
+Result of the latest full run: **23/25 passed** (see [`eval/results.md`](eval/results.md)). Earlier runs scored 25/25 (four in a row), and later runs on the same unchanged pipeline scored 24/25 and 23/25. The variation comes from model nondeterminism on borderline "not specified" questions (data protection law, moderation rules). In the failing runs the bot still refused or stayed within the PDF text rather than inventing an answer.
 
 Relevance threshold: `0.25`. Observed max dense cosine (`dense_max`):
 
