@@ -115,14 +115,15 @@ The prompt is generic; nothing about this corpus is hardcoded. Claims with unkno
 - User text, conversation history and document text are wrapped in delimiter tags and declared as data, never instructions. Any delimiter tag strings inside user or document text are stripped before wrapping, so they cannot close the data block.
 - Strict JSON output schemas limit what the model can return; citations are validated against retrieved ids.
 - Input is truncated to 1000 characters.
-- In the UI every user and model string is HTML-escaped (`rag.formatting.safe_html`) and Markdown-escaped in warning boxes, so injected HTML or Markdown is shown as plain text.
+- In the UI every user string is HTML-escaped (`rag.formatting.safe_html`); model answers are HTML-escaped before being rendered as Markdown (so `- ` bullets become lists but HTML never runs), and warning boxes are Markdown-escaped.
 - The API key is read from `.env`, the environment or Streamlit/Space secrets and is never displayed or logged.
 
 ## Branding
 
-- Logo (`assets/unnamed.jpg`) as page icon, header logo and assistant avatar; wordmark with tagline (`assets/61yv40dMDTL.png`) at the top of the sidebar.
-- Palette from the logos: brand red `#9B1B1B`, dark red `#7A1414`, light grey `#F4F4F6`, white, charcoal text `#2B2B2B`, muted `#6B6B6B` (theme in `.streamlit/config.toml`, styles in `assets/style.css`).
-- Header band with a red gradient, bilingual subtitle, Arabic in `dir="rtl"` containers with an Arabic font stack, visible focus outlines and text contrast of at least 4.5:1.
+- Palette taken from almamlakatv.com: dark navy by default (page `#1B1F2A`, header `#151922`, cards `#232836`, text `#FFFFFF`, muted `#9AA0AD`), red accent `#A3171D` with a `#A3171D → #C62828` gradient; a light theme (page `#FAFAFA`, cards `#FFFFFF`, text `#1A1A1A`) is one click away via the sun/moon switch in the top bar.
+- Logo (`assets/unnamed.jpg`) in the sticky top bar (alt "المملكة") and as the assistant's round avatar; IBM Plex Sans Arabic font.
+- Chat layout: centered greeting with a red "متصل" live pill and suggestion chips, red user bubbles, typing indicator, pinned composer, a "3 PDFs" popover listing the knowledge base, and a "محادثة جديدة" (new chat) button.
+- Tokens live as CSS variables in `assets/style.css` (theme base in `.streamlit/config.toml`); visible red focus rings, AA text contrast in both themes, and animations are disabled under `prefers-reduced-motion`.
 
 ## Run locally
 

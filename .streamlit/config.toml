@@ -1,9 +1,19 @@
 [theme]
-base = "light"
-primaryColor = "#9B1B1B"
-backgroundColor = "#F4F4F6"
-secondaryBackgroundColor = "#FFFFFF"
-textColor = "#2B2B2B"
+# Dark navy (almamlakatv.com) is the default. The in-app sun/moon toggle
+# switches the assets/style.css tokens to the light palette per session.
+base = "dark"
+primaryColor = "#A3171D"
+backgroundColor = "#1B1F2A"
+secondaryBackgroundColor = "#232836"
+textColor = "#FFFFFF"
+borderColor = "#2F3544"
+linkColor = "#E57373"
+font = "'IBM Plex Sans Arabic':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap, system-ui, sans-serif"
+baseRadius = "0.75rem"
+showWidgetBorder = true
+
+[client]
+toolbarMode = "minimal"
 
 [browser]
 gatherUsageStats = false

@@ -39,15 +39,15 @@ def test_app_boots_with_branding_and_doc_list():
     assert not at.error
     page = _all_markdown(at.markdown)
     assert "Almamlaka TV" in page
-    assert 'alt="Almamlaka TV logo"' in page
+    assert 'alt="المملكة"' in page
     assert 'dir="rtl"' in page
-    sidebar = _all_markdown(at.sidebar.markdown)
+    assert "كيف يمكنني مساعدتك اليوم؟" in page
     for pdf in PDFS:
-        assert pdf in sidebar
-    labels = [b.label for b in at.sidebar.button]
+        assert pdf in page
+    labels = [b.label for b in at.button]
     assert "What is the total project budget?" in labels
-    assert "ما هي الميزانية الإجمالية للمشروع؟" in labels
-    assert "Clear chat" in labels
+    assert "متى موعد الإطلاق؟" in labels
+    assert at.toggle(key="theme_toggle").value is True  # dark navy by default
 
 
 def _fake_answer(lang: str, text: str):
@@ -77,7 +77,7 @@ def _fake_answer(lang: str, text: str):
 def test_example_question_renders_answer_conflict_and_sources(monkeypatch):
     monkeypatch.setattr(ChatEngine, "answer", _fake_answer("en", "Budget <script>alert(1)</script>"))
     at = AppTest.from_file(APP_PATH).run(timeout=30)
-    at.sidebar.button(key="ex_en_0").click().run(timeout=30)
+    at.button(key="ex_en_0").click().run(timeout=30)
     assert not at.exception
     assert len(at.chat_message) == 2
     page = _all_markdown(at.markdown)
@@ -87,17 +87,18 @@ def test_example_question_renders_answer_conflict_and_sources(monkeypatch):
     assert len(at.expander) == 2
     assert "Budget & Timeline Breakdown" in at.expander[0].label
 
-    at.sidebar.button(key="clear_chat").click().run(timeout=30)
+    at.button(key="clear_chat").click().run(timeout=30)
     assert len(at.chat_message) == 0
 
 
 def test_arabic_answer_renders_rtl(monkeypatch):
     monkeypatch.setattr(ChatEngine, "answer", _fake_answer("ar", "الميزانية الإجمالية"))
     at = AppTest.from_file(APP_PATH).run(timeout=30)
-    at.sidebar.button(key="ex_ar_0").click().run(timeout=30)
+    at.button(key="ex_ar_0").click().run(timeout=30)
     assert not at.exception
     page = _all_markdown(at.markdown)
-    assert '<div dir="rtl" lang="ar" class="rtl">الميزانية الإجمالية</div>' in page
+    assert "الميزانية الإجمالية" in page
+    assert '<div dir="rtl" lang="ar" class="rtl">متى موعد الإطلاق؟</div>' in page
     assert "معلومات متعارضة في الوثائق" in at.warning[0].value
     assert "المصادر" in page
 
@@ -126,9 +127,9 @@ def test_missing_index_is_rebuilt_at_startup(monkeypatch, tmp_path):
     assert not at.exception
     assert not at.error
     assert len(calls) == 1
-    sidebar = _all_markdown(at.sidebar.markdown)
+    page = _all_markdown(at.markdown)
     for pdf in PDFS:
-        assert pdf in sidebar
+        assert pdf in page
 
 
 def test_missing_key_shows_error_without_crash(monkeypatch):
@@ -136,6 +137,6 @@ def test_missing_key_shows_error_without_crash(monkeypatch):
     monkeypatch.setattr("rag.config.get_api_key", lambda: None)
     at = AppTest.from_file(APP_PATH).run(timeout=30)
     assert not at.exception
-    at.sidebar.button(key="ex_en_1").click().run(timeout=30)
+    at.button(key="ex_en_1").click().run(timeout=30)
     assert not at.exception
     assert any("OPENAI_API_KEY is not configured" in e.value for e in at.error)
