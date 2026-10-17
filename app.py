@@ -471,8 +471,14 @@ def main() -> None:
     if index is None:
         st.error(INDEX_ERROR_MSG)
 
+    # The empty-state hero always lives in this one slot. When the first
+    # question arrives the slot is re-emitted as an empty element, which
+    # replaces the whole hero block at once, so its chips cannot linger
+    # (dimmed) under the typing indicator while the answer is generated.
+    hero_slot = st.empty()
     if not has_conversation:
-        render_empty_state()
+        with hero_slot.container():
+            render_empty_state()
         return
 
     # Pinned composer first, so it is on screen while the answer is generated.

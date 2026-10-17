@@ -739,7 +739,17 @@ footer,
 /* ---------- mobile ---------- */
 @media (max-width: 640px) {
   .mm-brand-sub { display: none; }
-  .st-key-clear_chat button p { display: none; }
+  /* Visually hidden but still the button's accessible name ("محادثة جديدة"). */
+  .st-key-clear_chat button [data-testid="stMarkdownContainer"],
+  .st-key-clear_chat button p {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   .st-key-clear_chat button { padding: 0 8px; }
   [data-testid="stChatInputTextArea"] { font-size: 16px !important; }
   [data-testid="stChatInputTextArea"]::placeholder {

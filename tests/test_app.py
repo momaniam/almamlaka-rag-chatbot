@@ -99,6 +99,11 @@ def test_arabic_answer_renders_rtl(monkeypatch):
     page = _all_markdown(at.markdown)
     assert "الميزانية الإجمالية" in page
     assert '<div dir="rtl" lang="ar" class="rtl">متى موعد الإطلاق؟</div>' in page
+    # The assistant answer sits in the RTL container (CSS: [class*="st-key-rtl_"]).
+    rtl_answer = at.get_by_key("rtl_answer_1")
+    assert "الميزانية الإجمالية" in _all_markdown(rtl_answer.markdown)
+    with pytest.raises(KeyError):
+        at.get_by_key("ltr_answer_1")
     assert "معلومات متعارضة في الوثائق" in at.warning[0].value
     assert "المصادر" in page
 
